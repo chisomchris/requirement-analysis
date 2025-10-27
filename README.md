@@ -93,7 +93,7 @@ Benefits:
 - Serves as a foundation for system design and test cases.
 ### Use Case Diagram for Booking System:
 
-placeholder image (alx-booking-uc.png)
+![Booking System Use Case Diagram](alx-booking-uc.png)
 
 Actors:
 
