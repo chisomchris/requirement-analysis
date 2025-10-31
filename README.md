@@ -54,32 +54,38 @@ The main activities involved in Requirement Analysis are:
 ## Types of Requirements
 1. Functional Requirements
 
-    Functional requirements define what the system should do—the specific behaviors, functions, and features.
+    Functional requirements define what the system should do - the specific behaviors, functions, and features. For a hotel booking application (Airbnb / OYO style), based on the case study, these include:
 
     Examples (for Booking Management System):
 
-    - Users can search for available rooms by date and location.
+    - **Hotel Search**: Users can search for hotels by location, dates, and amenities. 
     
-    - Users can book a room and receive a confirmation email.
-    
-    - Admins can add, edit, or remove listings.
-    
-    - The system should process online payments securely.
+    - **Booking Creation**: Users can make a booking for a hotel room for specific dates.
+ 
+    - **View Booking Details**: Users can view their current and past bookings. The “View Booking Service” handles both customer and manager (hotel) views. 
+
+    - **Hotel Management (for Hosts / Owners)**: Hotel owners / managers can manage their hotel information (e.g., room listings) via a Hotel Management Service. 
+
+    - **Payment Processing**: The booking service communicates with a third-party Payment Service to process payments when a user books a room. 
+
+    - **Real-Time Availability / Inventory Check**: The system should check room availability in real time to prevent overbooking. (In the architecture described, the booking service interacts with a database + caching system to manage inventory.) 
+
+    - **Notification / Messaging**: After booking or updates, notifications are sent to users / hotel managers via a message queue system. 
 
 2. Non-functional Requirements
 
-    Non-functional requirements specify how the system performs rather than what it does.
+    Non-functional requirements define how well the system performs or its quality attributes. 
   
     Examples:
 
-    - The system should handle up to 10,000 concurrent users.
+    - **Scalability**: The system must scale to handle a very large number of users, searches, and bookings. The architecture uses microservices and can horizontally scale.
+    - **High Availability**: The system should be highly available (minimal downtime), since bookings are critical operations. The design includes load balancers and redundant services. 
     
-    - The booking confirmation email must be sent within 10 seconds of payment.
-    
-    - The website must be available 99.9% of the time.
-    
-    - The interface should be mobile-friendly and accessible.
+    - **Low Latency (Performance)**: Search operations need to be very fast, likely by using Elasticsearch for querying hotel data. 
 
+    - **Reliability / Fault Tolerance**: Components should fail without bringing down the whole system. For example, they use messaging queues (e.g., Kafka) to decouple services and handle asynchronous updates. 
+    
+    - **Data Consistency**: For critical operations like booking, the system needs to maintain consistent state of room inventory. The design uses a database cluster (master–slave) and messaging to ensure updates are handled reliably.
 
 ## Use Case Diagrams
 
